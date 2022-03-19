@@ -1,4 +1,6 @@
 #import all
+from optparse import Option
+from typing import Optional
 from fastapi import FastAPI, Path
 from pydantic import BaseModel
 
@@ -20,6 +22,13 @@ class Student(BaseModel):
     Name: str
     age: int
     designation: str
+
+#class for updating
+
+class UpdateStudent(BaseModel):
+    Name: Optional[str] = None
+    age: Optional[int] = None
+    designation: Optional[str] = None
 
 #modules
 @app.get("/")
@@ -47,7 +56,7 @@ def get_data(student_id: int, name: str):
             return students[student_id]
     return {"Data": "Not Found"}
 
-#request body and post method
+#request body and post method add new data
 @app.post("/create-student/{student_id}")
 def create_student(student_id: int, student:Student):
     if student_id in students:
@@ -55,4 +64,18 @@ def create_student(student_id: int, student:Student):
     
     students[student_id] = student
     return students[student_id]
+
+#Update the student parameter
+@app.put("/update-student/{student_id}")
+def update_student(student_id: int, student:UpdateStudent):
+    if student_id not in students:
+        return {"Error": "Student does not exist"}
     
+    if student.Name != None:
+        students[student_id].Name = student.Name
+    if student.age != None:
+        students[student_id].age = student.age
+    if student.designation != None:
+        students[student_id].designation = student.designation
+    return students[student_id]
+
