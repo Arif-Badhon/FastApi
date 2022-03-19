@@ -1,5 +1,6 @@
 #import all
 from fastapi import FastAPI, Path
+from pydantic import BaseModel
 
 #start fastapi
 app = FastAPI()
@@ -12,6 +13,14 @@ students = {
         "designation": "Data Specialist"
     }
 }
+
+#class for adding new data
+
+class Student(BaseModel):
+    Name: str
+    age: int
+    designation: str
+
 #modules
 @app.get("/")
 def index():
@@ -37,3 +46,13 @@ def get_data(student_id: int, name: str):
         if students[student_id]["Name"] == name:
             return students[student_id]
     return {"Data": "Not Found"}
+
+#request body and post method
+@app.post("/create-student/{student_id}")
+def create_student(student_id: int, student:Student):
+    if student_id in students:
+        return {"Error": "Already exists"}
+    
+    students[student_id] = student
+    return students[student_id]
+    
