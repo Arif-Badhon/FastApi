@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #import all
 from optparse import Option
 from typing import Optional
