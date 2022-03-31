@@ -3,6 +3,7 @@ from optparse import Option
 from typing import Optional
 from fastapi import FastAPI, Path
 from pydantic import BaseModel
+import uvicorn
 
 #start fastapi
 app = FastAPI()
@@ -89,3 +90,5 @@ def update_student(student_id: int, student:UpdateStudent):
         students[student_id].designation = student.designation
     return students[student_id]
 
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
