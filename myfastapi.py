@@ -13,6 +13,16 @@ students = {
         "Name":"Badhon",
         "age": 28,
         "designation": "Data Specialist"
+    },
+    2 : {
+        "Name" : "Maha",
+        "age" : 27,
+        "designation" : "Market and Economic Specialist"
+    },
+    3 : {
+        "Name" : "Sajid",
+        "age" : 44,
+        "designation" : "Luiccha"
     }
 }
 
